@@ -1,6 +1,9 @@
 package com.freetime.wallet;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,12 +16,15 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
+        Button btnGen = findViewById(R.id.btnGen);
+        btnGen.setOnClickListener(v -> {
+            HDWallet wallet = new HDWallet(128, ""); // strength = 128 bits, empty passphrase
+            String mnemonic = wallet.mnemonic();
+            String address = wallet.getAddressForCoin(CoinType.ETHEREUM);
+
+            Log.d("Wallet", "Mnemonic: " + mnemonic);
+            Log.d("Wallet", "ETH Address: " + address);
         });
     }
 }
