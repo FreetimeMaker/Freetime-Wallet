@@ -82,11 +82,10 @@ public class MainActivity extends AppCompatActivity {
         String address = wallet.getAddressForCoin(selectedCoin);
         addressDisplay.setText(selectedCoin.name() + " Address:\n" + address);
 
-        new AlertDialog.Builder(this)
-            .setTitle("Wallet Generated")
-            .setMessage("Mnemonic:\n" + mnemonic + "\n\n" + selectedCoin.name() + " Address:\n" + address)
-            .setPositiveButton("OK", null)
-            .show();
+        Intent intent = new Intent(MainActivity.this, DashboardActivity.class);
+        intent.putExtra("mnemonic", mnemonic);
+        startActivity(intent);
+
     }
 
     private void loginWithPassphrase() {
@@ -106,11 +105,10 @@ public class MainActivity extends AppCompatActivity {
         String address = wallet.getAddressForCoin(selectedCoin);
         addressDisplay.setText(selectedCoin.name() + " Address:\n" + address);
 
-        new AlertDialog.Builder(this)
-            .setTitle("Login Successful")
-            .setMessage("Mnemonic:\n" + mnemonic + "\n\n" + selectedCoin.name() + " Address:\n" + address)
-            .setPositiveButton("OK", null)
-            .show();
+        Intent intent = new Intent(MainActivity.this, DashboardActivity.class);
+    intent.putExtra("mnemonic", mnemonic);
+    startActivity(intent);
+
     }
 
     private CoinType getCoinTypeFromPosition(int position) {
