@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Freetime Wallet</string>
+    <string-array name="coin_array">
+        <item>Bitcoin</item>
+        <item>Bitcoin Cash</item>
+        <item>Litecoin</item>
+        <item>Ethereum</item>
+    </string-array>
 </resources>
