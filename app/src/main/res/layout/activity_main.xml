@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F4F6F8">
+    android:background="#2196F3">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,21 +13,25 @@
         android:paddingTop="24dp"
         android:padding="24dp">
 
+        <!-- 🔵 Header Section -->
         <TextView
             android:id="@+id/txtWelcome"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
             android:text="Welcome to Freetime Wallet"
-            android:textColor="#222"
-            android:textSize="32sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:background="#60afefff"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:gravity="center" />
 
         <TextView
             android:id="@+id/txtLoginOrGen"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Login Using Your Passphrase or Generate one"
-            android:textColor="#222"
+            android:text="Login Using Your existing Passphrase or Generate one"
+            android:textColor="#FFFFFF"
+            android:background="#964300ff"
             android:textSize="24sp"
             android:textStyle="bold"
             android:layout_marginTop="16dp" />
@@ -39,7 +43,7 @@
             android:text="Generate Passphrase"
             android:layout_marginTop="32dp"
             android:textColor="#FFFFFF"
-            android:backgroundTint="#007BFF" />
+            android:backgroundTint="#4CAF50" />
 
         <EditText
             android:id="@+id/inputPassphrase"
@@ -51,7 +55,8 @@
             android:minLines="3"
             android:maxLines="5"
             android:padding="12dp"
-            android:textColor="#000000"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#4CAF50"
             android:textSize="16sp"
             android:background="@android:drawable/edit_text" />
 
@@ -62,7 +67,20 @@
             android:text="Login Using Your Passphrase"
             android:layout_marginTop="32dp"
             android:textColor="#FFFFFF"
-            android:backgroundTint="#28A745" />
+            android:backgroundTint="#4CAF50" />
+
+        <!-- 🔴 Graph/Data Visualization -->
+        <TextView
+            android:id="@+id/priceDisplay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Price will appear here"
+            android:textSize="16sp"
+            android:textColor="#444"
+            android:padding="12dp"
+            android:layout_marginTop="16dp"
+            android:background="#ff0000ff" />
+
 
         <!-- 🪙 Coin Selector -->
         <TextView
@@ -71,7 +89,7 @@
             android:layout_height="wrap_content"
             android:text="Select a coin to view its address:"
             android:textSize="18sp"
-            android:textColor="#333"
+            android:textColor="#FFFFFF"
             android:layout_marginTop="32dp" />
 
         <Spinner
@@ -89,7 +107,7 @@
             android:layout_height="wrap_content"
             android:text="Address will appear here"
             android:textSize="16sp"
-            android:textColor="#444"
+            android:textColor="#FFFFFF"
             android:padding="12dp"
             android:layout_marginTop="16dp"
             android:background="#E0E0E0" />
