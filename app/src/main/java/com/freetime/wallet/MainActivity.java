@@ -96,6 +96,10 @@ public class MainActivity extends AppCompatActivity {
         addressDisplay.setText(selectedCoin.name() + " Address:\n" + address);
 
         fetchCryptoPrice(selectedCoin);
+
+        Intent intent = new Intent(MainActivity.this, DashboardActivity.class);
+        intent.putExtra("mnemonic", mnemonic);
+        startActivity(intent);
     }
 
     private void loginWithPassphrase() {
@@ -116,6 +120,10 @@ public class MainActivity extends AppCompatActivity {
         addressDisplay.setText(selectedCoin.name() + " Address:\n" + address);
 
         fetchCryptoPrice(selectedCoin);
+
+        Intent intent = new Intent(MainActivity.this, DashboardActivity.class);
+        intent.putExtra("mnemonic", mnemonic);
+        startActivity(intent);
     }
 
     private void fetchCryptoPrice(CoinType coinType) {

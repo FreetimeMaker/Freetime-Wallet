@@ -11,6 +11,7 @@ import wallet.core.jni.HDWallet;
 
 public class DashboardActivity extends AppCompatActivity {
 
+    ImageView qrCodeImage;
     private Spinner coinSelector;
     private TextView addressDisplay;
     private HDWallet wallet;
@@ -22,6 +23,7 @@ public class DashboardActivity extends AppCompatActivity {
 
         coinSelector = findViewById(R.id.coinSelector);
         addressDisplay = findViewById(R.id.addressDisplay);
+        qrCodeImage = findViewById(R.id.qrCodeImage);
 
         String mnemonic = getIntent().getStringExtra("mnemonic");
         wallet = new HDWallet(mnemonic, "");
@@ -30,6 +32,10 @@ public class DashboardActivity extends AppCompatActivity {
             CoinType selectedCoin = getCoinTypeFromPosition(position);
             String address = wallet.getAddressForCoin(selectedCoin);
             addressDisplay.setText(selectedCoin.name() + " Address:\n" + address);
+
+            // Generate QR code
+            Bitmap qrBitmap = new BarcodeEncoder().encodeBitmap(address, BarcodeFormat.QR_CODE, 400, 400);
+            qrCodeImage.setImageBitmap(qrBitmap);
         });
 
         coinSelector.setSelection(0); // Default to Bitcoin
