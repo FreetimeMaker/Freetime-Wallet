@@ -40,4 +40,13 @@
     android:layout_marginTop="16dp"
     android:contentDescription="QR Code"
     android:layout_gravity="center_horizontal" />
+
+    <com.google.android.material.button.MaterialButton
+    android:id="@+id/btnLogout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Logout"
+    android:textColor="#FFFFFF"
+    android:backgroundTint="#DC3545"
+    android:layout_marginTop="32dp" />
 </LinearLayout>
