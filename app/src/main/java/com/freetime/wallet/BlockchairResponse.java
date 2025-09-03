@@ -2,6 +2,8 @@ package com.freetime.wallet;
 
 import android.os.Bundle;
 
+import java.util.Map;
+
 public class BlockchairResponse {
     public Map<String, AddressData> data;
 

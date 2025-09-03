@@ -45,8 +45,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         inputPassphrase = findViewById(R.id.inputPassphrase);
-        coinSelector = findViewById(R.id.coinSelector);
-        addressDisplay = findViewById(R.id.addressDisplay);
         priceDisplay = findViewById(R.id.priceDisplay); // Add this TextView in XML
 
         MaterialButton btnGen = findViewById(R.id.btnGen);
@@ -88,14 +86,11 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(this, "Passphrase copied to clipboard!", Toast.LENGTH_SHORT).show();
         inputPassphrase.setText(mnemonic);
 
-        coinSelector.setEnabled(true);
-        coinSelector.setSelection(0);
-
-        CoinType selectedCoin = getCoinTypeFromPosition(coinSelector.getSelectedItemPosition());
-        String address = wallet.getAddressForCoin(selectedCoin);
-        addressDisplay.setText(selectedCoin.name() + " Address:\n" + address);
-
-        fetchCryptoPrice(selectedCoin);
+        String btcAdress = wallet.getAddressForCoin(CoinType.BITCOIN);
+        String ethAddress = wallet.getAddressForCoin(CoinType.ETHEREUM);
+        String ltcAddress = wallet.getAddressForCoin(CoinType.LITECOIN);
+        String bchAddress = wallet.getAddressForCoin(CoinType.BITCOINCASH);
+        String usdtAddress = wallet.getAddressForCoin(CoinType.ETHEREUM); // USDT on Ethereum
 
         Intent intent = new Intent(MainActivity.this, DashboardActivity.class);
         intent.putExtra("mnemonic", mnemonic);
@@ -112,14 +107,11 @@ public class MainActivity extends AppCompatActivity {
 
         wallet = new HDWallet(mnemonic, "");
 
-        coinSelector.setEnabled(true);
-        coinSelector.setSelection(0);
-
-        CoinType selectedCoin = getCoinTypeFromPosition(coinSelector.getSelectedItemPosition());
-        String address = wallet.getAddressForCoin(selectedCoin);
-        addressDisplay.setText(selectedCoin.name() + " Address:\n" + address);
-
-        fetchCryptoPrice(selectedCoin);
+        String btcAdress = wallet.getAddressForCoin(CoinType.BITCOIN);
+        String ethAddress = wallet.getAddressForCoin(CoinType.ETHEREUM);
+        String ltcAddress = wallet.getAddressForCoin(CoinType.LITECOIN);
+        String bchAddress = wallet.getAddressForCoin(CoinType.BITCOINCASH);
+        String usdtAddress = wallet.getAddressForCoin(CoinType.ETHEREUM); // USDT on Ethereum
 
         Intent intent = new Intent(MainActivity.this, DashboardActivity.class);
         intent.putExtra("mnemonic", mnemonic);
@@ -160,17 +152,19 @@ public class MainActivity extends AppCompatActivity {
             case 1: return CoinType.BITCOINCASH;
             case 2: return CoinType.LITECOIN;
             case 3: return CoinType.ETHEREUM;
-            default: return CoinType.ETHEREUM;
+            case 4: return CoinType.USDT;
+            default: return CoinType.BITCOIN;
         }
     }
 
     private String getCoinGeckoId(CoinType coinType) {
         switch (coinType) {
-            case BITCOIN: return "bitcoin";
-            case BITCOINCASH: return "bitcoin-cash";
-            case LITECOIN: return "litecoin";
-            case ETHEREUM: return "ethereum";
-            default: return "ethereum";
+            case 0: return "bitcoin";
+            case 1: return "bitcoin-cash";
+            case 2: return "litecoin";
+            case 3: return "ethereum";
+            case 4: return "usdt";
+            default: return "bitcoin";
         }
     }
 }

@@ -7,14 +7,14 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:gravity="top|center_horizontal"
         android:orientation="vertical"
         android:paddingTop="24dp"
         android:padding="24dp">
 
         <!-- 🔵 Header Section -->
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/txtWelcome"
             android:layout_width="match_parent"
             android:layout_height="60dp"
@@ -25,16 +25,17 @@
             android:textSize="20sp"
             android:gravity="center" />
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/txtLoginOrGen"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:text="Login Using Your existing Passphrase or Generate one"
             android:textColor="#FFFFFF"
             android:background="#964300ff"
             android:textSize="24sp"
             android:textStyle="bold"
-            android:layout_marginTop="16dp" />
+            android:layout_marginTop="16dp"
+            android:gravity="center"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnGen"
@@ -45,7 +46,7 @@
             android:textColor="#FFFFFF"
             android:backgroundTint="#4CAF50" />
 
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/inputPassphrase"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -57,8 +58,9 @@
             android:padding="12dp"
             android:textColor="#FFFFFF"
             android:backgroundTint="#4CAF50"
-            android:textSize="16sp"
-            android:background="@android:drawable/edit_text" />
+            android:textSize="24sp"
+            android:background="@android:drawable/edit_text"
+            android:gravity="center"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnLogin"
@@ -70,47 +72,27 @@
             android:backgroundTint="#4CAF50" />
 
         <!-- 🔴 Graph/Data Visualization -->
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/priceDisplay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Price will appear here"
-            android:textSize="16sp"
-            android:textColor="#444"
-            android:padding="12dp"
-            android:layout_marginTop="16dp"
-            android:background="#ff0000ff" />
-
-
-        <!-- 🪙 Coin Selector -->
-        <TextView
-            android:id="@+id/txtSelectCoin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Select a coin to view its address:"
-            android:textSize="18sp"
-            android:textColor="#FFFFFF"
-            android:layout_marginTop="32dp" />
-
-        <Spinner
-            android:id="@+id/coinSelector"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:entries="@array/coin_array"
-            android:enabled="false" />
-
-        <!-- 📬 Address Display -->
-        <TextView
-            android:id="@+id/addressDisplay"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Address will appear here"
-            android:textSize="16sp"
+            android:textSize="24sp"
             android:textColor="#FFFFFF"
             android:padding="12dp"
             android:layout_marginTop="16dp"
-            android:background="#E0E0E0" />
+            android:background="#ff0000ff"
+            android:gravity="center"/>
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomNav"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:menu="@menu/bottom_nav_menu_main"
+            android:background="#60afefff"
+            android:itemIconTint="#FFFFFF"
+            android:itemTextColor="#FFFFFF"/>
 
     </LinearLayout>
 </ScrollView>
