@@ -5,18 +5,9 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.AdapterView;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.util.Currency;
-import java.util.Locale;
-
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 
 import org.json.JSONObject;
 
@@ -24,6 +15,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.button.MaterialButton;
 
+import java.util.Currency;
+import java.util.Locale;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import wallet.core.jni.CoinType;
 import wallet.core.jni.HDWallet;
 
@@ -34,9 +31,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private EditText inputPassphrase;
-    private Spinner coinSelector;
-    private TextView addressDisplay;
-    private TextView priceDisplay;
+    private TextView addressDisplay, priceDisplay;
     private HDWallet wallet;
 
     @Override
@@ -45,33 +40,22 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         inputPassphrase = findViewById(R.id.inputPassphrase);
-        priceDisplay = findViewById(R.id.priceDisplay); // Add this TextView in XML
+        addressDisplay = findViewById(R.id.addressDisplay);
+        priceDisplay = findViewById(R.id.priceDisplay);
 
         MaterialButton btnGen = findViewById(R.id.btnGen);
         MaterialButton btnLogin = findViewById(R.id.btnLogin);
-
-        coinSelector.setEnabled(false);
+        BottomNavigationView bottomNav = findViewById(R.id.bottomNav);
 
         btnGen.setOnClickListener(v -> generateWallet());
         btnLogin.setOnClickListener(v -> loginWithPassphrase());
 
-        coinSelector.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, android.view.View view, int position, long id) {
-                if (wallet == null) {
-                    addressDisplay.setText("Please generate or login first.");
-                    return;
-                }
-
-                CoinType selectedCoin = getCoinTypeFromPosition(position);
-                String address = wallet.getAddressForCoin(selectedCoin);
-                addressDisplay.setText(selectedCoin.name() + " Address:\n" + address);
-
-                fetchCryptoPrice(selectedCoin);
+        bottomNav.setOnItemSelectedListener(item -> {
+            if (item.getItemId() == R.id.nav_logout) {
+                performLogout();
+                return true;
             }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {}
+            return false;
         });
     }
 
@@ -80,91 +64,55 @@ public class MainActivity extends AppCompatActivity {
         String mnemonic = wallet.mnemonic();
 
         ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-        ClipData clip = ClipData.newPlainText("Wallet Mnemonic", mnemonic);
-        clipboard.setPrimaryClip(clip);
+        clipboard.setPrimaryClip(ClipData.newPlainText("Wallet Mnemonic", mnemonic));
 
         Toast.makeText(this, "Passphrase copied to clipboard!", Toast.LENGTH_SHORT).show();
         inputPassphrase.setText(mnemonic);
 
-        String btcAdress = wallet.getAddressForCoin(CoinType.BITCOIN);
-        String ethAddress = wallet.getAddressForCoin(CoinType.ETHEREUM);
-        String ltcAddress = wallet.getAddressForCoin(CoinType.LITECOIN);
-        String bchAddress = wallet.getAddressForCoin(CoinType.BITCOINCASH);
-        String usdtAddress = wallet.getAddressForCoin(CoinType.ETHEREUM); // USDT on Ethereum
+        String btcAddress = wallet.getAddressForCoin(CoinType.BITCOIN);
+        addressDisplay.setText("BTC Address:\n" + btcAddress);
 
-        Intent intent = new Intent(MainActivity.this, DashboardActivity.class);
-        intent.putExtra("mnemonic", mnemonic);
-        startActivity(intent);
+        fetchCryptoPrice("bitcoin");
     }
 
     private void loginWithPassphrase() {
         String mnemonic = inputPassphrase.getText().toString().trim();
-
         if (!HDWallet.isValidMnemonic(mnemonic)) {
-            Toast.makeText(this, "Invalid passphrase. Please check and try again.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Invalid passphrase", Toast.LENGTH_SHORT).show();
             return;
         }
-
         wallet = new HDWallet(mnemonic, "");
-
-        String btcAdress = wallet.getAddressForCoin(CoinType.BITCOIN);
-        String ethAddress = wallet.getAddressForCoin(CoinType.ETHEREUM);
-        String ltcAddress = wallet.getAddressForCoin(CoinType.LITECOIN);
-        String bchAddress = wallet.getAddressForCoin(CoinType.BITCOINCASH);
-        String usdtAddress = wallet.getAddressForCoin(CoinType.ETHEREUM); // USDT on Ethereum
-
-        Intent intent = new Intent(MainActivity.this, DashboardActivity.class);
-        intent.putExtra("mnemonic", mnemonic);
-        startActivity(intent);
+        String btcAddress = wallet.getAddressForCoin(CoinType.BITCOIN);
+        addressDisplay.setText("BTC Address:\n" + btcAddress);
+        fetchCryptoPrice("bitcoin");
     }
 
-    private void fetchCryptoPrice(CoinType coinType) {
-        String currencyCode = Currency.getInstance(Locale.getDefault()).getCurrencyCode(); // e.g. "CHF"
-        String coinId = getCoinGeckoId(coinType); // e.g. "bitcoin"
-
+    private void fetchCryptoPrice(String coinId) {
+        String currencyCode = Currency.getInstance(Locale.getDefault()).getCurrencyCode();
         OkHttpClient client = new OkHttpClient();
         String url = "https://api.coingecko.com/api/v3/simple/price?ids=" + coinId + "&vs_currencies=" + currencyCode.toLowerCase();
 
-        Request request = new Request.Builder().url(url).build();
-
         new Thread(() -> {
             try {
-                Response response = client.newCall(request).execute();
+                Response response = client.newCall(new Request.Builder().url(url).build()).execute();
                 String json = response.body().string();
-
                 JSONObject jsonObject = new JSONObject(json);
                 double price = jsonObject.getJSONObject(coinId).getDouble(currencyCode.toLowerCase());
 
-                runOnUiThread(() -> {
-                    priceDisplay.setText(coinId.toUpperCase() + " Price: " + price + " " + currencyCode);
-                });
-
+                runOnUiThread(() -> priceDisplay.setText(
+                        coinId.toUpperCase() + " Price: " + price + " " + currencyCode
+                ));
             } catch (Exception e) {
-                e.printStackTrace();
                 runOnUiThread(() -> priceDisplay.setText("Price unavailable"));
             }
         }).start();
     }
 
-    private CoinType getCoinTypeFromPosition(int position) {
-        switch (position) {
-            case 0: return CoinType.BITCOIN;
-            case 1: return CoinType.BITCOINCASH;
-            case 2: return CoinType.LITECOIN;
-            case 3: return CoinType.ETHEREUM;
-            case 4: return CoinType.USDT;
-            default: return CoinType.BITCOIN;
-        }
-    }
-
-    private String getCoinGeckoId(CoinType coinType) {
-        switch (coinType) {
-            case 0: return "bitcoin";
-            case 1: return "bitcoin-cash";
-            case 2: return "litecoin";
-            case 3: return "ethereum";
-            case 4: return "usdt";
-            default: return "bitcoin";
-        }
+    private void performLogout() {
+        wallet = null;
+        inputPassphrase.setText("");
+        addressDisplay.setText("Address will appear here");
+        priceDisplay.setText("Price will appear here");
+        Toast.makeText(this, "Logged out", Toast.LENGTH_SHORT).show();
     }
 }
