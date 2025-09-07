@@ -18,7 +18,7 @@
             android:id="@+id/txtWelcome"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:text="Welcome to Freetime Wallet"
+            android:text="@string/welcome_text"
             android:textStyle="bold"
             android:background="#60afefff"
             android:textColor="#FFFFFF"
@@ -29,7 +29,7 @@
             android:id="@+id/txtLoginOrGen"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Login Using Your existing Passphrase or Generate one"
+            android:text="@string/info_text"
             android:textColor="#FFFFFF"
             android:background="#964300ff"
             android:textSize="20sp"
@@ -42,7 +42,7 @@
             android:id="@+id/btnGen"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Generate Passphrase"
+            android:text="@string/gen_pass"
             android:layout_marginTop="32dp"
             android:textColor="#FFFFFF"
             android:backgroundTint="#4CAF50" />
@@ -52,7 +52,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:hint="Enter your passphrase here"
+            android:hint="@string/enter_pass"
             android:inputType="textMultiLine"
             android:minLines="3"
             android:maxLines="5"
@@ -66,30 +66,17 @@
             android:id="@+id/btnLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Login Using Your Passphrase"
+            android:text="@string/login_btn"
             android:layout_marginTop="32dp"
             android:textColor="#FFFFFF"
             android:backgroundTint="#4CAF50" />
-
-        <!-- 🪙 Address Display -->
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/addressDisplay"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Address will appear here"
-            android:textSize="18sp"
-            android:textColor="#FFFFFF"
-            android:padding="12dp"
-            android:layout_marginTop="16dp"
-            android:background="#33000000"
-            android:gravity="center" />
 
         <!-- 🔴 Price Display -->
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/priceDisplay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Price will appear here"
+            android:text="@string/coin_graph"
             android:textSize="20sp"
             android:textColor="#FFFFFF"
             android:padding="12dp"
