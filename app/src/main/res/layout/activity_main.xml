@@ -86,14 +86,14 @@
 
         <!-- ⚙️ Bottom Navigation -->
         <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/bottomNav"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            app:menu="@menu/bottom_nav_menu_main"
-            android:background="#60afefff"
-            android:itemIconTint="#FFFFFF"
-            android:itemTextColor="#FFFFFF" />
+        android:id="@+id/bottom_nav"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/windowBackground"
+        app:menu="@menu/bottom_nav_menu_main"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     </LinearLayout>
 </ScrollView>
