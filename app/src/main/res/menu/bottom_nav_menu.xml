@@ -2,18 +2,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/nav_logout"
-        android:title="Logout"
+        android:title="@string/bnm_logout"
         android:icon="@drawable/logout" />
     <item
         android:id="@+id/nav_dashboard"
-        android:title="Dasboard"
+        android:title="@string/bnm_dash"
         android:icon="@drawable/dashboard" />
     <item
         android:id="@+id/nav_currencies"
-        android:title="Currencies"
+        android:title="@string/bnmm_graph"
         android:icon="@drawable/currencies" />
     <item
         android:id="@+id/nav_swap"
-        android:title="Swap"
+        android:title="@string/bnm_swap"
         android:ico="@drawable/swap" />
 </menu>
