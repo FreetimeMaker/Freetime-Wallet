@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Freetime Wallet</string>
     <string-array name="coin_array">
@@ -19,4 +20,7 @@
     <string name="bnm_swap">Swap</string>
     <string name="dash_wel_tex">Welcome to your Freetime Wallet</string>
     <string name="dash_address">Address will appear here</string>
+    <string name="bnm_pf">Pump.Fun</string>
+    <string name="bnm_web3">Web3</string>
+    <string name="bnm_settings">Settings</string>
 </resources>

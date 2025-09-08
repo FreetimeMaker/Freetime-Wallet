@@ -8,4 +8,16 @@
         android:id="@+id/nav_currencies"
         android:title="@string/bnmm_graph"
         android:icon="@drawable/currencies" />
+    <item
+        android:id="@+id/nav_pf"
+        android:title="@string/bnm_pf"
+        android:icon="@drawable/PumpFun" />
+    <item
+        android:id="@+id/nav_Web3"
+        android:title="@string/bnm_web3"
+        android:icon="@drawable/web3" />
+    <item
+        android:id="@+id/nav_settings"
+        android:title="@string/bnm_settings"
+        android:icon="@drawable/settings" />
 </menu>

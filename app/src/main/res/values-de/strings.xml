@@ -20,4 +20,7 @@
     <string name="bnm_swap">Tauschen</string>
     <string name="dash_wel_tex">Willkommen bei deinem Freetime Wallet</string>
     <string name="dash_address">Addressen werden hier erscheinen</string>
+    <string name="bnm_pf">Pump.Fun</string>
+    <string name="bnm_web3">Web3</string>
+    <string name="bnm_settings">Settings</string>
 </resources>
